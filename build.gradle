@@ -1,0 +1,32 @@
+group 'com.hainet'
+version '1.0.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'findbugs'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+tasks.withType(FindBugs) {
+    // (Optional)
+    // https://docs.gradle.org/current/userguide/findbugs_plugin.html
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+findbugs {
+    // (Optional)
+    // https://docs.gradle.org/current/dsl/org.gradle.api.plugins.quality.FindBugs.html
+    // Exclude specific language like kotlin.
+    excludeFilter = file("${project.rootDir}/config/findbugs/findbugs_filter.xml")
+}
